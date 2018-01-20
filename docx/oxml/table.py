@@ -13,7 +13,7 @@ from ..exceptions import InvalidSpanError
 from .ns import nsdecls, qn
 from ..shared import Emu, Twips
 from .simpletypes import (
-    ST_Merge, ST_TblLayoutType, ST_TblWidth, ST_TwipsMeasure, XsdInt
+    ST_DecimalNumber, ST_Merge, ST_TblLayoutType, ST_TblWidth, ST_TwipsMeasure, XsdInt
 )
 from .xmlchemy import (
     BaseOxmlElement, OneAndOnlyOne, OneOrMore, OptionalAttribute,
@@ -226,6 +226,22 @@ class CT_TblLayoutType(BaseOxmlElement):
     """
     type = OptionalAttribute('w:type', ST_TblLayoutType)
 
+class CT_TblLook(BaseOxmlElement):
+    """
+    ``<w:tblLook>`` element, containing info on table formatting.
+    """
+    firstRow = OptionalAttribute('w:firstRow', ST_DecimalNumber)
+    lastRow = OptionalAttribute('w:lastRow', ST_DecimalNumber)
+    firstColumn = OptionalAttribute('w:firstColumn', ST_DecimalNumber)
+    lastColumn = OptionalAttribute('w:lastColumn', ST_DecimalNumber)
+    noHBand = OptionalAttribute('w:noHBand', ST_DecimalNumber)
+    noVBand = OptionalAttribute('w:noVBand', ST_DecimalNumber)
+#     firstRow = OneAndOnlyOne('w:firstRow')
+#     lastRow = OneAndOnlyOne('w:lastRow')
+#     firstColumn = OneAndOnlyOne('w:firstColumn')
+#     lastColumn = OneAndOnlyOne('w:lastColumn')
+#     noHBand = OneAndOnlyOne('w:noHBand')
+#     noVBand = OneAndOnlyOne('w:noVBand')
 
 class CT_TblPr(BaseOxmlElement):
     """
@@ -242,7 +258,8 @@ class CT_TblPr(BaseOxmlElement):
     tblStyle = ZeroOrOne('w:tblStyle', successors=_tag_seq[1:])
     bidiVisual = ZeroOrOne('w:bidiVisual', successors=_tag_seq[4:])
     jc = ZeroOrOne('w:jc', successors=_tag_seq[8:])
-    tblLayout = ZeroOrOne('w:tblLayout', successors=_tag_seq[13:])
+    tblLayout = ZeroOrOne('w:tblLayout', successors=_tag_seq[13])
+    tblLook = ZeroOrOne('w:tblLook', successors=_tag_seq[14:])
     del _tag_seq
 
     @property
