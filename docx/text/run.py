@@ -181,6 +181,14 @@ class Run(Parented):
     def underline(self, value):
         self.font.underline = value
 
+    @property
+    def drawings(self):
+        """
+        ORSTEN added.
+        Retrieve drawings from _r.
+        """
+        return self._r.drawing_lst
+
 
 class _Text(object):
     """
