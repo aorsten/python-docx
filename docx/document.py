@@ -195,6 +195,13 @@ class Document(ElementProxy):
             self.__body = _Body(self._element.body, self)
         return self.__body
 
+    def get_elements(self):
+        """
+        ORSTEN added.
+        Return elements from body.
+        """
+        return self._body._element
+
 
 class _Body(BlockItemContainer):
     """
